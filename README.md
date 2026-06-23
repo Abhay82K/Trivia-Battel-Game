@@ -5,11 +5,11 @@ Players compete against each other by answering trivia questions from different 
 
 🚀 Live Demo
 
-🔗 https://your-username.github.io/trivia-battle-game/
+🔗 https://abhay82k.github.io/Trivia-Battel-Game/
 
 📸 Preview
 
-<img width="100%" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop" alt="Trivia Game Banner">
+[Trivia Game](home-screen.png)
 
 ✨ Features
 
