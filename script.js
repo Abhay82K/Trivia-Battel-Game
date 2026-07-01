@@ -41,6 +41,7 @@ let questionsArr = [];
 showRoundNo.innerText = `Round Number: ${roundNum}`;
 
 async function selectCategory() {
+    let difficulty = ["easy", "medium", "hard"];
     let sltCategoryValue = sltCategory.value;
 
     if (sltCategory.value === "") {
@@ -50,18 +51,12 @@ async function selectCategory() {
     }
 
     showErrMsg.innerText = "";
-    let difficulty = "";
-
     try {
-        for(let i=0; i < 3; i++) {
-            if(i === 0) {
-                difficulty = "easy";
-            } else if(i === 1){
-                difficulty = "medium";
-            } else {
-                difficulty = "hard";
+        for(let i = 0; i < difficulty.length; i++) {
+            const response = await fetch(`https://the-trivia-api.com/v2/questions?categories=${sltCategoryValue}&limit=2&difficulties=${difficulty[i]}`)
+            if(!response.ok) {
+                throw new Error(response.status);
             }
-            const response = await fetch(`https://the-trivia-api.com/v2/questions?categories=${sltCategoryValue}&limit=2&difficulties=${difficulty}`)
             const data = await response.json();
             questionsArr.push(...data);
         }
@@ -78,7 +73,7 @@ async function selectCategory() {
         showQuestionDetails();
 
     } catch(error) {
-        console.log("Failed to fetch Question");
+        showErrMsg.innerText = "Failed to fetch questions. Try again.";
     }
 
     startRound.disabled = false;
@@ -145,13 +140,9 @@ function showQuestionDetails() {
 
     for(let i = 0; i < labels.length; i++) {
         labels[i].innerText = optionArr[i];
+         labels[i].style.color = "black";
     }
-        
 
-    for(let j = 0; j < labels.length; j++) {
-        labels[j].style.color = "black";
-    }
-    
     for(let i = 0; i < showradioBtn.length; i++) {
         showradioBtn[i].checked = false;
         showradioBtn[i].disabled = false;
@@ -222,7 +213,7 @@ showNxt.addEventListener("click", function() {
     currentIndex++;
 
     if(currentIndex < questionsArr.length) {
-        showPlayTurn.innerText = "";
+        // showPlayTurn.innerText = "";
         showQuestionDetails();
     } else {
         showScreen3rd.style.display = "none";
